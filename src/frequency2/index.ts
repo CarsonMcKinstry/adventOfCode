@@ -16,21 +16,23 @@ function run() {
   const stream = fs.createReadStream(path.join(__dirname, 'inputs.txt'));
 
   stream.on('data', (chunk: Buffer) => {
-    const data = parseChunks(chunk).map(parseSignedInt);
-    const frequencies: number[] = [];
+    const data = parseChunks(chunk);
+    const frequencies: {
+      [key: number]: null,
+    } = {};
 
     let count = 0;
     let total = 0;
     while (true) {
 
       const f = data[count];
-      total = total + f;
+      total = total + parseSignedInt(f);
 
-      if (frequencies.includes(total)) {
+      if (frequencies.hasOwnProperty(total)) {
         break;
       }
 
-      frequencies.push(total);
+      frequencies[total] = null;
       count++;
       if (count === data.length) {
         count = 0;
