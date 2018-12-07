@@ -60,8 +60,6 @@ function run() {
 
     const parsedClaims: Claim[] = data.map(parseClaim);
 
-    // const { numColumns, numRows }: GridSize = getPatternArray(parsedClaims);
-
     const pattern = Array.from(Array(1000 * 1000)).map(() => 0);
 
     parsedClaims.forEach((claim) => {
